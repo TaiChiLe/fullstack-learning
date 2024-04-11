@@ -1,0 +1,153 @@
+body {
+    font-family: "Black Ops One", system-ui;
+    font-weight: 400;
+    font-style: normal;
+    background-color: #0e0e0e;
+    padding-bottom: 100px;
+    color: white;
+}
+
+.logo-image img {
+    height: 70px;
+    border-radius: 4px;
+}
+
+.header {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.header .header-item {
+    width: 30%;
+}
+
+.logo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    color: red;
+    font-size: 20px;
+    font-weight: bold;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+.main-menu-item {
+    text-align: right;
+}
+
+.main-menu-item.active a {
+    color: white;
+    background-color: red;
+}
+
+.main-menu-item a {
+    display: inline-block;
+    margin-bottom: 5px;
+    color: grey;
+    font-size: 12px;
+    text-decoration: none;
+    padding: 5px 15px;
+    border-radius: 4px;
+    transition: all ease-in 400ms;
+}
+
+.main-menu-item a:hover {
+    color: white;
+    background-color: crimson;
+}
+
+.stat-list {
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 50px;
+}
+
+.stat-item-title {
+    margin-bottom: 20px;
+    font-size: 20px;
+    text-align: center;
+}
+
+.stat-item-content {
+    display: flex;
+    gap: 30px;
+    text-align: center;
+}
+
+.container {
+    max-width: 1140px;
+    margin: 0 auto;
+}
+
+.about-me {
+    margin-top: 140px;
+    display: flex;
+}
+
+.about-me-image {
+    text-align: center;
+}
+
+.about-me-image,
+.about-me-content {
+    flex: 1;
+}
+
+.section-title {
+    font-size: 30px;
+    border-bottom: 4px solid red;
+}
+
+ul li {
+    margin-bottom: 15px;
+}
+
+.favourite-videos-list {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.favourite-video-item {
+    margin-top: 30px;
+}
+
+/* Animation */
+
+@property --angle {
+    syntax: '<angle>';
+    initial-value: 0deg;
+    inherits: false;
+}
+
+.moving-border {
+    position: relative;
+}
+
+.moving-border::before,
+.moving-border::after {
+    content: '';
+    position: absolute;
+    border-radius: 4px;
+    inset: -2px;
+    z-index: -1;
+    background: linear-gradient(var(--angle), #032146, #c3f2ff, #b00);
+    animation: rotate 6s linear infinite;
+}
+
+.moving-border::after {
+    filter: blur(10px);
+}
+
+@keyframes rotate {
+    0% {
+        --angle: 0deg;
+    }
+
+    100% {
+        --angle: 360deg;
+    }
+}

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Template</title>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        input {
+            border-radius: 10px;
+        }
+
+        button {
+            margin-top: 20px;
+        }
+
+        .summary {
+            background-color: aquamarine;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div>First Name</div>
+    <input class="first-name" type="text" maxlength="100" />
+    <div>Last name</div>
+    <input class="last-name" type="text" maxlength="100" />
+    <div>Age</div>
+    <input class="age" type="number" minlength="3" maxlength="140" />
+    <div class="summary"></div>
+    <button>Create Summary</button>
+
+    <script>
+        let firstName = document.querySelector('.first-name');
+        let lastName = document.querySelector('.last-name');
+        let age = document.querySelector('.age');
+
+        let summary = document.querySelector('.summary');
+
+        let btn = document.querySelector('button');
+
+        btn.addEventListener('click', function () {
+            summary.textContent = `Hello, my name is ${firstName.value} ${lastName.value}. I am ${age.value} years old!`;
+        })
+
+    </script>
+</body>
+
+</html>

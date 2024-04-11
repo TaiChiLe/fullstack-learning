@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Template</title>
+    <style>
+        h1 {
+            font-size: 40px;
+            color: green;
+        }
+
+        div {
+            margin-bottom: 20px;
+        }
+
+        span {
+            font-weight: bold;
+        }
+
+        .red-text {
+            color: red;
+        }
+
+        .green-text {
+            color: forestgreen;
+        }
+
+        .orange-text {
+            color: orange;
+        }
+
+        .blue-text {
+            color: blue;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>This is Week 2 - Homework 1</h1>
+    <div><span>1st</span> text block!</div>
+    <div class="red-text"><span>2nd</span> text block!</div>
+    <div class="green-text"><span>3rd</span> text block!</div>
+    <div class="orange-text"><span>4th</span> text block!</div>
+    <div class="blue-text"><span>5th</span> text block!</div>
+
+
+    <script>
+        const redText = document.querySelector('.red-text');
+        redText.addEventListener('click', function () {
+            alert('Red text is clicked');
+        });
+
+        const greenText = document.querySelector('.green-text');
+        greenText.addEventListener('click', function () {
+            alert('Green text is clicked');
+        });
+
+        const orangeText = document.querySelector('.orange-text');
+        orangeText.addEventListener('click', function () {
+            alert('Orange text is clicked');
+        });
+
+        const blueText = document.querySelector('.blue-text');
+        blueText.addEventListener('click', function () {
+            alert('Blue text is clicked');
+        });
+    </script>
+</body>
+
+</html>

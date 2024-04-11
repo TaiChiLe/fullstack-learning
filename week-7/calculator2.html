@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Template</title>
+    <style>
+        body {
+            margin: 100px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .calculator-btn {
+            height: 50px;
+            width: 80px;
+            margin: 2px;
+            border-radius: 5px;
+            border: 0;
+        }
+
+        .calculator-btn:hover {
+            filter: brightness(50%);
+        }
+
+        .calculator-input {
+            width: 335px;
+            text-align: right;
+            border: 0;
+            font-size: 26px;
+            position: absolute;
+            top: 120px;
+        }
+
+        .input-equation {
+            width: 335px;
+            height: 16px;
+            text-align: right;
+            border: 0;
+            font-size: 16px;
+            color: grey;
+            position: absolute;
+            top: 100px;
+        }
+
+        .input {
+            border: 1px solid black;
+            height: 60px;
+            border-radius: 5px;
+            border-color: grey;
+            position: inherit;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .del-btn {
+            background-color: #f44242;
+        }
+
+        .equal-btn {
+            background-color: #4286f4;
+        }
+
+        .history-button {
+            position: absolute;
+            z-index: 2;
+        }
+
+        .input img:hover {
+            background-color: grey;
+            border-radius: 5px;
+        }
+
+        .history {
+            position: relative;
+            top: 23px;
+            left: 0px;
+            max-width: 200px;
+            border: 1px solid grey;
+            border-radius: 5px;
+            padding: 5px;
+            background-color: white;
+            z-index: 1;
+            display: block;
+        }
+
+        .input .history div:hover {
+            background-color: grey;
+            border-radius: 5px;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <div class="input">
+            <img class="history-button"
+                src="https://upload.wikimedia.org/wikipedia/commons/2/27/OOjs_UI_icon_history.svg" alt="">
+            <div class="history hidden">
+            </div>
+            <div class="input-equation"></div>
+            <input readonly class="calculator-input" />
+        </div>
+        <div>
+            <div>
+                <button class="calculator-btn">)</button>
+                <button class="calculator-btn">(</button>
+                <button class="calculator-btn del-btn">DEL</button>
+                <button class="calculator-btn">AC</button>
+            </div>
+            <div>
+                <button class="calculator-btn">7</button>
+                <button class="calculator-btn">8</button>
+                <button class="calculator-btn">9</button>
+                <button class="calculator-btn mod-btn">/</button>
+            </div>
+            <div>
+                <button class="calculator-btn">4</button>
+                <button class="calculator-btn">5</button>
+                <button class="calculator-btn">6</button>
+                <button class="calculator-btn mod-btn">*</button>
+            </div>
+            <div>
+                <button class="calculator-btn">1</button>
+                <button class="calculator-btn">2</button>
+                <button class="calculator-btn">3</button>
+                <button class="calculator-btn mod-btn">-</button>
+            </div>
+            <div>
+                <button class="calculator-btn">0</button>
+                <button class="calculator-btn mod-btn">.</button>
+                <button class="calculator-btn equal-btn">=</button>
+                <button class="calculator-btn mod-btn">+</button>
+            </div>
+        </div>
+    </div>
+
+
+
+    <script>
+        //Select buttons and input
+        let buttons = document.querySelectorAll('.calculator-btn');
+        let inputValue = document.querySelector('.calculator-input');
+        let equation = document.querySelector('.input-equation');
+        let modButton = document.querySelectorAll('.mod-btn');
+        let documentBody = document.querySelector('body');
+        let calculated = false;
+        let htmlHistory = document.querySelector('.history');
+        let history = [];
+
+        //Function that deletes previous input
+        let delPrevInput = function () {
+            inputValue.value = inputValue.value.slice(0, -1);
+        }
+
+        //clears input
+        let clearInput = function () {
+            inputValue.value = '';
+        }
+
+        //Evaluate input
+        let calcInput = function () {
+            try {
+                equation.innerHTML = inputValue.value;
+                let div = document.createElement("div");
+                let node = document.createTextNode(`${equation.innerHTML}=${eval(inputValue.value)}`);
+                inputValue.value = eval(inputValue.value);
+                div.appendChild(node);
+                div.classList.add('history-result')
+                htmlHistory.appendChild(div);
+
+            } catch (e) {
+                inputValue.value = 'ERROR';
+                equation.innerHTML = '';
+            }
+        }
+
+        //Checks if last character of the input is a modifier
+        let checkIfModifier = function (lastChar) {
+            if (lastChar === '*' || lastChar === '/' || lastChar === '-' || lastChar === '+' || lastChar === '.') {
+                for (let i = 0; i < modButton.length; i++) {
+                    modButton[i].disabled = true;
+                }
+            } else {
+                for (let i = 0; i < modButton.length; i++) {
+                    modButton[i].disabled = false;
+                }
+            }
+        }
+
+        //onClick function executes when a button is clicked or keyboard is typed
+        let onClick = function (event) {
+            let buttonClicked = event.currentTarget.textContent;
+            if (acceptedInput(buttonClicked)) {
+                processBtnClick(buttonClicked);
+            }
+        }
+
+        let acceptedInput = function (key) {
+            let acceptedInput = [];
+            for (i = 0; i < buttons.length; i++) {
+                acceptedInput.push(buttons[i].innerHTML)
+            }
+
+            if (acceptedInput.includes(key)) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        //processes btn click
+        let processBtnClick = function (key) {
+            if (key == 'DEL' || key == 'Backspace' || key == 'Delete') {
+                delPrevInput();
+                let lastChar = inputValue.value.slice(-1);
+                checkIfModifier(lastChar);
+            } else if (key == 'AC' || key == 'Escape') {
+                clearInput();
+                checkIfModifier('');
+            } else if (key == '=' || key == 'Enter') {
+                calcInput();
+                calculated = true;
+                checkIfModifier('');
+            } else {
+                let currentInput = inputValue.value + key;
+                let lastChar = currentInput.slice(-1);
+                checkIfModifier(lastChar);
+
+                if (calculated) {
+                    clearInput();
+                    inputValue.value = inputValue.value + key;
+                    calculated = false;
+                } else {
+                    inputValue.value = inputValue.value + key;
+                }
+            }
+        }
+        //Check if a button is clicked
+        //Loop through buttons and add event listener
+        for (let i = 0; i < buttons.length; i++) {
+            let button = buttons[i];
+            button.addEventListener('click', onClick);
+        }
+
+        //detect keypress
+        documentBody.addEventListener("keydown", (e) => {
+            let pressedKey;
+            if (e.key === 'Enter') {
+                pressedKey = '=';
+            } else if (e.key === 'Delete' || e.key === 'Backspace') {
+                pressedKey = 'DEL';
+            } else if (e.key === 'Escape') {
+                pressedKey = 'AC';
+            } else {
+                pressedKey = e.key;
+            }
+
+            if (acceptedInput(pressedKey)) {
+                processBtnClick(pressedKey);
+            }
+        });
+
+        //When click on a history result populate the calculator
+        documentBody.addEventListener('click', (e) => {
+            let historyResult = document.querySelectorAll('.history-result');
+
+            for (let i = 0; i < historyResult.length; i++) {
+                historyResult[i].addEventListener('click', function () {
+                    let splitNumnber = historyResult[i].textContent.split('=');
+                    inputValue.value = splitNumnber[1];
+                    equation.innerHTML = splitNumnber[0];
+                });
+            }
+        })
+
+        //when click on history button show the history
+        document.querySelector('.history-button').onclick = function () {
+            if (document.querySelector('.history').classList.contains('hidden')) {
+                document.querySelector('.history').classList.remove('hidden');
+            } else {
+                document.querySelector('.history').classList.add('hidden');
+            }
+        }
+
+
+    </script>
+</body>
+
+</html>

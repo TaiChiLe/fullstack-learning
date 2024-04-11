@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Practice week</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jasmine/5.1.2/jasmine.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jasmine/5.1.2/jasmine.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jasmine/5.1.2/jasmine-html.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jasmine/5.1.2/boot0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jasmine/5.1.2/boot1.min.js"></script>
+</head>
+
+<body>
+    <script>
+        // Function returns the total of two numbers
+        function add(x, y) {
+            return x + y;
+        }
+
+        function minus(x, y) {
+            return x - y;
+        }
+
+        function checkExamResult(score) {
+            if (score >= 50) {
+                return 'Pass';
+            } else {
+                return 'Fail';
+            }
+        }
+
+        function sum(numbers) {
+            let total = 0;
+            for (let i = 0; i < numbers.length; i++) {
+                total = total + numbers[i];
+            }
+            return total;
+        }
+
+        function getArrayAverage(numbers) {
+            let result = sum(numbers);
+            return result / numbers.length;
+        }
+
+        function uniqueItems(items) {
+            let unique = [];
+            items.forEach(element => {
+                if (!unique.includes(element)) {
+                    unique.push(element);
+                }
+            });
+            return unique;
+        }
+
+        function reverse(items) {
+            let reversed = items.reverse();
+            return reversed;
+        }
+
+        function reverseSentence(sentence) {
+            return sentence.split("").reverse().join("");
+        }
+
+        function uniqueInOrder(items) {
+            let result = [];
+            for (let i = 0; i < items.length; i++) {
+                if (i === 0) {
+                    result.push(items[i]);
+                } else {
+                    if (!result.includes(items[i])) {
+                        result.push(items[i]);
+                    }
+                }
+
+            }
+            return result;
+        }
+
+        function addFromOneUntil(number) {
+            let total = 0;
+            if (isNaN(number)) {
+                return false;
+            } else if (number < 1) {
+                return number;
+            } else {
+                for (let i = 1; i <= number; i++) {
+                    total += i;
+                }
+            }
+            return total;
+        }
+
+        function countCharacters(character, sentence) {
+            count = 0;
+            if (character.length > 1) {
+                return false;
+            } else {
+                for (let i = 0; i < sentence.length; i++) {
+                    if (sentence[i] === character) {
+                        count++;
+                    }
+                }
+            }
+            return count;
+        }
+
+        function removeNumber(item, items) {
+            result = [];
+            for (let i = 0; i < items.length; i++) {
+                if (!(items[i] === item)) {
+                    result.push(items[i]);
+                }
+            }
+            return result;
+        }
+
+        function getLargestNumber(numbers) {
+            largestNum = 0;
+            for (let i = 0; i < numbers.length; i++) {
+                if (numbers[i] > largestNum) {
+                    largestNum = numbers[i];
+                }
+            }
+            return largestNum;
+        }
+
+        function getSecondLargestNumber(numbers) {
+            let largestNum = 0;
+            let secondLargest = 0;
+            if (numbers.length < 2) {
+                return false;
+            } else {
+                largestNum = getLargestNumber(numbers);
+                let array = removeNumber(largestNum, numbers);
+                secondLargest = getLargestNumber(array);
+            }
+            return secondLargest;
+        }
+
+    </script>
+    <script src="./index.spec.js">
+    </script>
+</body>
+
+</html>

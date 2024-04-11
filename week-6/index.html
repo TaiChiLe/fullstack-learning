@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Template</title>
+</head>
+
+<body>
+    <script>
+        function isGreaterThanTen(number) {
+            if (number > 10) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        let result = isGreaterThanTen(11);
+        console.log('isGreaterThanTen result', result);
+
+        function isGreaterThanTenAndSmallerThanFifteen(number) {
+            if (number > 10 && number < 15) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        let anotherNumberTestResult = isGreaterThanTenAndSmallerThanFifteen(13);
+
+        console.log('Is 13 larger than 10 and smaller than 15', anotherNumberTestResult);
+
+
+        function isGreaterThanTenOrSmallerThanZero(number) {
+            if (number > 10 || number < 0) {
+                return true;
+            } else {
+                false;
+            }
+        }
+
+        let justAnotherNumberTestResult = isGreaterThanTenOrSmallerThanZero(13);
+
+        console.log('Is -5 larger than 10 or smaller than 0', justAnotherNumberTestResult);
+
+        let numbers = [3, 10, 11, 9, 8, 9, 3, 2, 1, 999];
+        console.log(numbers[3]);
+        console.log(numbers.length);
+
+        function countFromZeroToTen() {
+            for (let i = 0; i < 11; i++) {
+                console.log(i);
+            }
+        }
+
+        countFromZeroToTen();
+
+        function getTheLargestNumber(numbers) {
+            let largestNum;
+            for (let i = 0; i < numbers.length; i++) {
+                if (i === 0) {
+                    largestNum = numbers[i];
+                }
+
+                if (numbers[i] > largestNum) {
+                    largestNum = numbers[i];
+                }
+            }
+            return largestNum;
+        }
+        let largestNumberResult = getTheLargestNumber(numbers);
+
+        console.log('The largest number of', numbers, largestNumberResult);
+
+    </script>
+</body>
+
+</html>
