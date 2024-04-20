@@ -11,7 +11,6 @@ let processTaskList = function (taskNum, inputValue) {
     <button delete-item-number="${taskNum}" class="delete-btn btn btn-danger">X</button>
     <button edit-item-number="${taskNum}" class="edit-btn btn btn-primary">Edit</button>
     <button save-item-number="${taskNum}" class="save-btn d-none btn btn-secondary">Save</button></div>`;
-
     //clears input value from input section
     input.value = '';
     //Add event listeners to the buttons
