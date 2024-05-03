@@ -114,9 +114,9 @@ let renderPage = function () {
         answerElement.appendChild(button);
     }
 
+    //sets nav element to blank and render the navigation
     nav.innerHTML = '';
     for (let i = 0; i < quizData.length; i++) {
-        //let html = `<li class="page-item"><a class="page-link" href="#">${i + 1}</a></li>`
         let newPageNum = document.createElement('li');
         newPageNum.classList.add('page-item');
         let newPageLink = document.createElement('a');
@@ -147,8 +147,7 @@ let renderPage = function () {
         checkAnswer(currentBtn, selectedAnswers[currentQuestionIndex]);
     }
 
-    //get submit buton
-
+    //checks whether or not to display submit btn
     if (currentQuestionIndex == quizData.length - 1) {
         submitBtn.classList.remove('d-none');
         nextBtn.classList.add('d-none');
@@ -159,6 +158,7 @@ let renderPage = function () {
 
 }
 
+//When next btn is pressed get next question
 let nextQuestion = function () {
     currentQuestionIndex++;
     if (currentQuestionIndex < quizData.length) {
@@ -168,13 +168,13 @@ let nextQuestion = function () {
         const hours = Math.floor(time / 3600);
         const minutes = Math.floor((time % 3600) / 60);
         const remainingSeconds = time % 60;
-
         const formattedTime = pad(hours) + ':' + pad(minutes) + ':' + pad(remainingSeconds);
         let completionTime = formattedTime;
         container.innerHTML = `<h2>Quiz Completed!</h2><div class="alert alert-primary mt-2">Your score is<span class="fw-bold"> ${score} / ${quizData.length}</span></div><div class="alert alert-secondary">Your test time is <strong>${completionTime}</strong></div>`;
     }
 }
 
+//When prev btn is pressed get previous page
 let prevQuestion = function () {
     currentQuestionIndex--;
     if (currentQuestionIndex < 0) {
@@ -185,12 +185,14 @@ let prevQuestion = function () {
 }
 renderPage();
 
+//initiate timer variable
 let timerInterval;
 
 function startTimer() {
     timerInterval = setInterval(updateTimer, 1000);
 }
 
+//function to update timer and display timer
 function updateTimer() {
     time++;
     const hours = Math.floor(time / 3600);
