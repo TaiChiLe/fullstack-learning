@@ -30,6 +30,7 @@ let processDeleteBtn = function (event) {
     let button = event.target;
     let itemNum = button.getAttribute('delete-item-number');
     let targetItem = document.querySelector(`[item-number="${itemNum}"]`);
+
     targetItem.outerHTML = '';
 }
 //Process save Btn when clicked
@@ -39,9 +40,12 @@ let processSaveBtn = function (event) {
     let textInput = document.querySelector(`[input-item-number="${itemNum}"]`);
     let saveBtn = document.querySelector(`[save-item-number="${itemNum}"]`);
     let editBtn = document.querySelector(`[edit-item-number="${itemNum}"]`);
-    textInput.setAttribute('value', textInput.value);
+
     textInput.disabled = true;
+    textInput.setAttribute('value', textInput.value);
+
     saveBtn.classList.add('d-none');
+
     editBtn.classList.remove('d-none');
 }
 
