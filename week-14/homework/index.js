@@ -5,9 +5,10 @@ let prevBtn = document.querySelector('[data-component="pagination:previous"]');
 let nextBtn = document.querySelector('[data-component="pagination:next"]');
 let selectPagination = document.querySelector('[data-component="pagination:select"]');
 let filter = document.querySelector('[data-compenent="filter"]');
+let searchText = document.querySelector('[data-component="searchText"]');
+let searchBtn = document.querySelector('[data-component="searchBtn"]');
 let currentPage = 1;
 let totalPages;
-let currentFilter = 'top';
 
 //renders the anime data
 let renderData = function (animeData) {
@@ -61,10 +62,11 @@ let renderData = function (animeData) {
 
 let renderFilter = function (genresData) {
     let allGenres = genresData.data;
+    let currentFilter = filter.value;
 
     //render filter dropdown
     filter.innerHTML = '';
-    if (currentFilter == 'top') {
+    if (currentFilter === 'top') {
         filter.innerHTML += `<option selected value="top">Top anime</option>`;
     } else {
         filter.innerHTML += `<option value="top">Top anime</option>`;
@@ -79,7 +81,7 @@ let renderFilter = function (genresData) {
 }
 
 //fetch from api
-let fetchData = function () {
+let fetchData = function (input) {
     //remove d-none to show loader and disable buttons while loading
     loader.classList.remove('d-none');
     selectPagination.disabled = true;
@@ -94,19 +96,28 @@ let fetchData = function () {
     }
 
     //Checks if current filter is 'top' else renders genres
-    if (currentFilter == 'top') {
-        fetch(`https://api.jikan.moe/v4/top/anime?page=${currentPage}`).
+    if (input) {
+        fetch(`https://api.jikan.moe/v4/anime?q=${input}&page=${currentPage}`).
             then(function (response) {
                 return response.json();
             }).then(renderData);
     } else {
-        fetch(`https://api.jikan.moe/v4/anime?genres=${currentFilter}&page=${currentPage}`).
-            then(function (response) {
-                return response.json();
-            }).then(renderData);
+        if (filter.value == 'top') {
+            fetch(`https://api.jikan.moe/v4/top/anime?page=${currentPage}`).
+                then(function (response) {
+                    return response.json();
+                }).then(renderData);
+        } else {
+            fetch(`https://api.jikan.moe/v4/anime?genres=${filter.value}&page=${currentPage}`).
+                then(function (response) {
+                    return response.json();
+                }).then(renderData);
+        }
     }
+}
 
-    //Renders the filter
+//Renders the filter
+let renderGenre = function () {
     fetch('https://api.jikan.moe/v4/genres/anime').
         then(function (response) {
             return response.json();
@@ -114,44 +125,43 @@ let fetchData = function () {
 }
 
 let loadPreviousPage = function () {
-    if (currentPage == 1) {
-    } else {
+    if (currentPage >= 1) {
         currentPage--;
-        fetchData();
+        fetchData(searchText.value);
     }
 }
 
 let loadNextPage = function () {
-    if (currentPage >= totalPages) {
-    } else {
+    if (currentPage <= totalPages) {
         currentPage++;
-        fetchData();
+        fetchData(searchText.value);
     }
 }
 
 let selectPage = function () {
     let selectedPage = selectPagination.value;
-    if (selectedPage == currentPage) {
-    } else {
-        currentPage = selectedPage;
-        fetchData();
-    }
+    currentPage = selectedPage;
+    fetchData(searchText.value);
 }
 
 let selectFilter = function () {
-    let selectedFilter = filter.value;
-    if (selectedFilter == currentFilter) {
-    } else {
-        currentPage = 1;
-        currentFilter = selectedFilter;
-        fetchData();
+    currentPage = 1;
+    fetchData();
+}
+
+let searchAnime = function () {
+    if (searchText.value != '') {
+        fetchData(searchText.value);
     }
 }
+
 //add event listeners
 prevBtn.addEventListener('click', loadPreviousPage);
 nextBtn.addEventListener('click', loadNextPage);
-selectPagination.addEventListener('click', selectPage);
-filter.addEventListener('click', selectFilter);
+selectPagination.addEventListener('change', selectPage);
+filter.addEventListener('change', selectFilter);
+searchBtn.addEventListener('click', searchAnime);
 
 //renders first page
 fetchData();
+renderGenre();
