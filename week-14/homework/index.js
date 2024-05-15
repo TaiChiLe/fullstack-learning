@@ -81,7 +81,7 @@ let renderFilter = function (genresData) {
 }
 
 //fetch from api
-let fetchData = function (input) {
+let fetchData = function (searchInput) {
     //remove d-none to show loader and disable buttons while loading
     loader.classList.remove('d-none');
     selectPagination.disabled = true;
@@ -95,12 +95,13 @@ let fetchData = function (input) {
         allListItems[i].classList.add('animate-pulse');
     }
 
-    //Checks if current filter is 'top' else renders genres
-    if (input) {
-        fetch(`https://api.jikan.moe/v4/anime?q=${input}&page=${currentPage}`).
+    //Checks if there is any search searchInputs
+    if (searchInput) {
+        fetch(`https://api.jikan.moe/v4/anime?q=${searchInput}&page=${currentPage}`).
             then(function (response) {
                 return response.json();
             }).then(renderData);
+        //Checks if current filter is 'top' else renders genres
     } else {
         if (filter.value == 'top') {
             fetch(`https://api.jikan.moe/v4/top/anime?page=${currentPage}`).
@@ -125,14 +126,14 @@ let renderGenre = function () {
 }
 
 let loadPreviousPage = function () {
-    if (currentPage >= 1) {
+    if (currentPage > 1) {
         currentPage--;
         fetchData(searchText.value);
     }
 }
 
 let loadNextPage = function () {
-    if (currentPage <= totalPages) {
+    if (currentPage < totalPages) {
         currentPage++;
         fetchData(searchText.value);
     }
