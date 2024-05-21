@@ -7,7 +7,9 @@ let selectPagination = document.querySelector('[data-component="pagination:selec
 let filter = document.querySelector('[data-compenent="filter"]');
 let searchText = document.querySelector('[data-component="searchText"]');
 let searchBtn = document.querySelector('[data-component="searchBtn"]');
+let toggleViewBtn = document.querySelector('[data-component="toggleViewBtn"]');
 let currentPage = 1;
+let currentFilter = 'top';
 let totalPages;
 
 //renders the anime data
@@ -62,7 +64,6 @@ let renderData = function (animeData) {
 
 let renderFilter = function (genresData) {
     let allGenres = genresData.data;
-    let currentFilter = filter.value;
 
     //render filter dropdown
     filter.innerHTML = '';
@@ -72,7 +73,7 @@ let renderFilter = function (genresData) {
         filter.innerHTML += `<option value="top">Top anime</option>`;
     }
     for (let i = 0; i < allGenres.length; i++) {
-        if (currentFilter == allGenres[i].mal_id) {
+        if (currentFilter === allGenres[i].mal_id) {
             filter.innerHTML += `<option selected value="${allGenres[i].mal_id}">${allGenres[i].name} (${allGenres[i].count})</option>`;
         } else {
             filter.innerHTML += `<option value="${allGenres[i].mal_id}">${allGenres[i].name} (${allGenres[i].count})</option>`;
@@ -103,7 +104,7 @@ let fetchData = function (searchInput) {
             }).then(renderData);
         //Checks if current filter is 'top' else renders genres
     } else {
-        if (filter.value == 'top') {
+        if (currentFilter == 'top') {
             fetch(`https://api.jikan.moe/v4/top/anime?page=${currentPage}`).
                 then(function (response) {
                     return response.json();
@@ -147,6 +148,7 @@ let selectPage = function () {
 
 let selectFilter = function () {
     currentPage = 1;
+    currentFilter = filter.value;
     fetchData();
 }
 
@@ -156,12 +158,27 @@ let searchAnime = function () {
     }
 }
 
+let toggleView = function () {
+    if (list.classList.contains('row')) {
+        list.classList.remove('row');
+        list.classList.add('d-flex');
+        list.classList.add('flex-column');
+        list.classList.add('align-items-center');
+    } else {
+        list.classList.add('row');
+        list.classList.remove('d-flex');
+        list.classList.remove('flex-column');
+        list.classList.remove('align-items-center');
+    }
+}
+
 //add event listeners
 prevBtn.addEventListener('click', loadPreviousPage);
 nextBtn.addEventListener('click', loadNextPage);
 selectPagination.addEventListener('change', selectPage);
 filter.addEventListener('change', selectFilter);
 searchBtn.addEventListener('click', searchAnime);
+toggleViewBtn.addEventListener('click', toggleView);
 
 //renders first page
 fetchData();
