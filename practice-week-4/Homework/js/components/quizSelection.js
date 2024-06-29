@@ -32,7 +32,6 @@ class QuizSelection {
 
         this.#onChange(selectedValue);
     }
-
 }
 
 export default QuizSelection;

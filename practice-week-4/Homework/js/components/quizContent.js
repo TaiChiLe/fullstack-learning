@@ -108,6 +108,10 @@ class QuizContent {
             allAnswers[i].addEventListener('click', this.#onAnswerSelected.bind(this));
         }
     }
+
+    destroy() {
+        this.#container.innerHTML = '';
+    }
 }
 
 export default QuizContent;

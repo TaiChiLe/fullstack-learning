@@ -1,6 +1,8 @@
 import QuizSelection from "./components/quizSelection.js";
 import QuizNavigation from "./components/quizNavigation.js";
 import QuizContent from "./components/quizContent.js";
+import QuizTimer from "./components/quizTimer.js";
+import QuizReport from "./components/quizReport.js";
 
 class QuizApp {
     #container;
@@ -9,6 +11,8 @@ class QuizApp {
     #activeQuiz;
     #quizContent;
     #attemptedItems = [];
+    #timer;
+    #quizReport;
 
     constructor(container) {
         this.#container = container;
@@ -32,9 +36,16 @@ class QuizApp {
 
         this.#quizSelection = new QuizSelection(container.querySelector('[data-component="selection"]'), this.#onQuizSelectionChange.bind(this));
 
+        this.#timer = new QuizTimer(this.#container.querySelector('[data-component="timer"]'));
+
     }
 
     #onQuizSelectionChange(selectedValue) {
+        this.#timer.resetTimer();
+        this.#timer.startTimer();
+        if (this.#quizReport) {
+            this.#quizReport.destroy();
+        }
         console.log(selectedValue)
         let url = `data/${selectedValue}.json`;
         console.log(url);
@@ -42,7 +53,6 @@ class QuizApp {
             return response.json();
         }).then(function (result) {
             console.log('Selected Quiz Data', result);
-
             this.#attemptedItems = [];
             this.#activeQuiz = result;
             let numPages = result.items.length;
@@ -52,14 +62,34 @@ class QuizApp {
             this.#quizContent = new QuizContent(this.#container.querySelector('[data-component="content"]'), this.#onQuizAnswerChange.bind(this));
             this.#quizContent.setQuizData(this.#activeQuiz);
             this.#quizContent.setActiveItem(0);
-
-
-
         }.bind(this));
+
+
     }
 
     #onSubmit() {
         console.log("On Submit Function Called");
+        let timeResult = this.#timer.getTime();
+        console.log('Time Result', timeResult);
+        let totalQuestions = this.#activeQuiz.items.length;
+        let score = 0;
+        //calculate correct answers
+        for (let i = 0; i < this.#attemptedItems.length; i++) {
+            if (this.#attemptedItems[i].correct) {
+                score++;
+            }
+        }
+
+        this.#quizReport = new QuizReport(this.#container.querySelector('[data-component="report"]'));
+        let scoreString = `${score} / ${totalQuestions}`;
+
+        this.#quizReport.displayResults(scoreString, timeResult);
+        this.#quizNavigation.destroy();
+        this.#quizContent.destroy();
+        this.#timer.resetTimer();
+        this.#timer.destroy();
+
+
     }
 
     #onChange(index) {

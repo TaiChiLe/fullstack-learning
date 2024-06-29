@@ -123,6 +123,10 @@ class QuizNavigation {
 
         this.#onChange(this.#activeIndex);
     }
+
+    destroy() {
+        this.#container.innerHTML = '';
+    }
 }
 
 export default QuizNavigation;
