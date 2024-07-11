@@ -1,19 +1,20 @@
 class QuizNavigation {
     #container;
     #activeIndex;
-    #nextBtn;
-    #prevBtn;
+    #previousButton;
+    #nextButton;
     #onSubmit;
     #onChange;
 
     constructor(container, onChange, onSubmitClicked) {
         this.#container = container;
-        this.#onSubmit = onSubmitClicked;
         this.#onChange = onChange;
+        this.#onSubmit = onSubmitClicked;
     }
     setQuizData(data) {
         console.log('data passing onto navigation', data);
         let pageNavigation = '';
+
         for (let i = 0; i <= data.items.length - 1; i++) {
             pageNavigation =
                 pageNavigation +
@@ -51,24 +52,26 @@ class QuizNavigation {
             );
         }
 
-        this.#nextBtn = this.#container.querySelector('[data-component="next"]');
-        this.#nextBtn.addEventListener('click', this.#onNextButtonClick.bind(this));
+        this.#nextButton = this.#container.querySelector('[data-component="next"]');
+        this.#nextButton.addEventListener(
+            'click',
+            this.#onNextButtonClick.bind(this)
+        );
 
-        this.#prevBtn = this.#container.querySelector(
+        this.#previousButton = this.#container.querySelector(
             '[data-component="previous"]'
         );
-        this.#prevBtn.addEventListener(
+        this.#previousButton.addEventListener(
             'click',
             this.#onPreviousButtonClick.bind(this)
         );
     }
 
     #onNextButtonClick() {
+        let currentText = this.#nextButton.innerHTML;
 
-
-        let currentText = this.#nextBtn.innerHTML;
         if (currentText === 'Submit') {
-            //user wants to submit, we need to notify main.js
+            // it means we need to notify our brain that user is submitting
             this.#onSubmit();
         } else {
             let newIndex = this.#activeIndex + 1;
@@ -106,19 +109,24 @@ class QuizNavigation {
 
         this.#activeIndex = index;
 
-        //select prev button
-        let prevBtn = this.#container.querySelector('[data-component="previous"]');
-
+        // when the #activeIndex is larger than 0
         if (this.#activeIndex > 0) {
-            prevBtn.disabled = false;
+            // set the previous button disabled to false
+            this.#previousButton.disabled = false;
         } else {
-            prevBtn.disabled = true;
+            // otherwise set the previous button disabled to true
+            this.#previousButton.disabled = true;
         }
 
+        // how do we know if the #activeIndex is the last item index?
+        // when the #activeIndex is equal to allPaginationButtons.length - 1
         if (this.#activeIndex === allPaginationButtons.length - 1) {
-            this.#nextBtn.innerHTML = 'Submit';
-        } else {
-            this.#nextBtn.innerHTML = 'Next';
+            // set the Next button text to "Submit"
+            this.#nextButton.innerHTML = 'Submit';
+        }
+        // otherwise set the Next button text to "Next"
+        else {
+            this.#nextButton.innerHTML = 'Next';
         }
 
         this.#onChange(this.#activeIndex);

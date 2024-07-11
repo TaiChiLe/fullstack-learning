@@ -1,0 +1,19 @@
+Constraint for the moving box
+- Left:
+    - Left Cant be less than 0
+- Up:
+    - Top cant be less than 0
+- Right:
+    - Moving box Width + Moving box left can't be greater Bounding box width
+- Down:
+    - Moving box height + moving box top can't be greater than bounding box height
+
+- Create variables to store the next moving position for top and left
+- those variables will use the current value of position
+- use the same logic to set the new value for these 2 top and left variables
+- use if else to check if these top and left are valid values to move the box
+- if yes, set the position.top and .left to those 2 variables
+- then set movingBox.style... to position as usual
+
+
+

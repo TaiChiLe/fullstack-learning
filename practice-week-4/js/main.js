@@ -1,12 +1,12 @@
-import QuizSelection from "./components/quizSelection.js";
-import QuizNavigation from "./components/quizNavigation.js";
-import QuizContent from "./components/quizContent.js";
+import QuizSelection from './components/quizSelection.js';
+import QuizNavigation from './components/quizNavigation.js';
+import QuizContent from './components/quizContent.js';
 
 class QuizApp {
     #container;
     #quizSelection;
-    #quizNavigation;
     #activeQuiz;
+    #quizNavigation;
     #quizContent;
 
     constructor(container) {
@@ -17,55 +17,67 @@ class QuizApp {
 
     #render() {
         this.#container.innerHTML = `
-        <div class="container mt-5 text-center">
+    <div class="container mt-5 text-center">
         <div data-component="selection"></div>
         <div data-component="content"></div>
         <div data-component="timer"></div>
         <div data-component="navigation"></div>
         <div data-component="report"></div>
-        </div>`;
+    </div>`;
     }
 
     #setup() {
         let container = this.#container;
 
-        this.#quizSelection = new QuizSelection(container.querySelector('[data-component="selection"]'), this.#onQuizSelectionChange.bind(this));
+        this.#quizSelection = new QuizSelection(
+            container.querySelector('[data-component="selection"]'),
+            this.#onQuizSelectionChange.bind(this)
+        );
 
+        let navigationContainer = this.#container.querySelector(
+            '[data-component = "navigation"]'
+        );
+        this.#quizNavigation = new QuizNavigation(
+            navigationContainer,
+            this.#onNavigationChange.bind(this),
+            this.#onSubmit.bind(this)
+        );
+        this.#quizContent = new QuizContent(
+            container.querySelector('[data-component="content"]')
+        );
     }
 
-    #onQuizSelectionChange(selectedValue) {
-        console.log(selectedValue)
-        let url = `data/${selectedValue}.json`;
-        console.log(url);
-        fetch(url).then(function (response) {
-            return response.json();
-        }).then(function (result) {
-            console.log('Selected Quiz Data', result);
-            this.#activeQuiz = result;
-            let numPages = result.items.length;
-            console.log(numPages);
-            this.#quizNavigation = new QuizNavigation(this.#container.querySelector('[data-component="navigation"]'), this.#onChange.bind(this), this.#onSubmit.bind(this));
-
-            this.#quizNavigation.setQuizData(this.#activeQuiz);
-
-            this.#quizContent = new QuizContent(this.#container.querySelector('[data-component="content"]'));
-
-            this.#quizContent.setQuizData(this.#activeQuiz);
-
-            this.#quizContent.setActiveItem(0);
-
-        }.bind(this));
+    #onNavigationChange(activeIndex) {
+        console.log('Current active index ', activeIndex);
+        // main now will tell quizContent which index it should move to
+        this.#quizContent.setActiveIndex(activeIndex);
     }
 
     #onSubmit() {
-        console.log("On Submit Function Called");
+        console.log('On submit is being called from Quiz Navigation');
     }
 
-    #onChange(index) {
-        console.log('On Change Active Index: ', index);
-        if (this.#quizContent) {
-            this.#quizContent.setActiveItem(index);
-        }
+    #onQuizSelectionChange(selectedValue) {
+        console.log(selectedValue);
+        //to do fetch we need to know the url we arbout to fetch
+        //1. construct the url so we can fetch
+        //what do we want : date/javasscript-quiz.json
+        let url = 'data/' + selectedValue + '.json';
+        //same : let url = `data/${selectedValue}.json`;
+        console.log(url);
+
+        fetch(url)
+            .then(function (response) {
+                return response.json();
+            })
+            .then(
+                function (result) {
+                    console.log('Selected quiz data', result);
+                    this.#activeQuiz = result;
+                    this.#quizNavigation.setQuizData(this.#activeQuiz);
+                    this.#quizContent.setQuizData(this.#activeQuiz);
+                }.bind(this)
+            );
     }
 }
 

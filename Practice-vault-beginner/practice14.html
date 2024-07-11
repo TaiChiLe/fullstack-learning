@@ -1,0 +1,98 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Template</title>
+    <style>
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+        }
+
+        button {
+            height: 60px;
+            width: 60px;
+        }
+
+        .bounding-box {
+            width: 800px;
+            height: 600px;
+            border: 2px dashed #666;
+        }
+
+        .inner-box {
+            position: relative;
+            height: 100px;
+            width: 100px;
+            background-color: #ccc;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div>
+            <button class="up-btn" data-direction="up">Up</button>
+        </div>
+        <div>
+            <button class="left-btn" data-direction="left">Left</button>
+            <button class="down-btn" data-direction="down">Down</button>
+            <button class="right-btn" data-direction="right">Right</button>
+        </div>
+
+        <div class="bounding-box">
+            <div class="inner-box"></div>
+        </div>
+    </div>
+    <script>
+        let movingBox = document.querySelector('.inner-box');
+        let allButtons = document.querySelectorAll('[data-direction]');
+        let movingGap = 10;
+        let position = {
+            top: 0,
+            left: 0
+        };
+        let onDirectionButtonClicked = function (event) {
+            let direction = event.target.getAttribute('data-direction');
+
+            if (direction === 'up') {
+                position.top -= movingGap;
+            } else if (direction === 'right') {
+                position.left += movingGap;
+            } else if (direction === 'down') {
+                position.top += movingGap;
+            } else if (direction === 'left') {
+                position.left -= movingGap;
+            }
+
+            movingBox.style.top = `${position.top}px`;
+            movingBox.style.left = `${position.left}px`;
+        };
+
+        for (let i = 0; i < allButtons.length; i++) {
+            allButtons[i].addEventListener('click', onDirectionButtonClicked);
+        }
+
+
+        // upBtn.addEventListener('click', function () {
+        //     movingBox.style.top = parseFloat(movingBox.style.top || 0) - 5 + 'px';
+        // });
+
+        // downBtn.addEventListener('click', function () {
+        //     movingBox.style.top = parseFloat(movingBox.style.top || 0) + 5 + 'px';
+        // });
+
+        // leftBtn.addEventListener('click', function () {
+        //     movingBox.style.left = parseFloat(movingBox.style.left || 0) - 5 + 'px';
+        // });
+
+        // rightBtn.addEventListener('click', function () {
+        //     movingBox.style.left = parseFloat(movingBox.style.left || 0) + 5 + 'px';
+        // });
+    </script>
+</body>
+
+</html>

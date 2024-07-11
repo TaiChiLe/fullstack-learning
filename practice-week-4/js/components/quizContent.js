@@ -24,12 +24,14 @@ class QuizContent {
 
                 answerContent =
                     answerContent +
-                    `<button class="btn btn-outline-secondary d-block" data-answer="${y}">${currentAnswer.text}</button>`;
+                    `<button class="btn btn-outline-secondary d-block" data-answer="${y}">
+                ${currentAnswer.text}
+              </button>`;
             }
 
             content =
                 content +
-                `<div class="d-none" data-item="${i}">
+                `<div class="d-none" data-item>
               <div class="mb-3"><span class="fw-bold">Question ${i + 1}.</span> ${currentItem.question
                 }</div>
               <div class="mb-3 d-flex flex-column gap-3 w-100">
@@ -47,17 +49,75 @@ class QuizContent {
           ${content}        
        </div>`;
 
+        let allAnswerButtons = this.#container.querySelectorAll('[data-answer]');
+
+        for (let i = 0; i < allAnswerButtons.length; i++) {
+            let currentButton = allAnswerButtons[i];
+
+            currentButton.addEventListener(
+                'click',
+                this.#onAnswerSelected.bind(this)
+            );
+        }
+
+        this.setActiveIndex(0);
     }
 
-    setActiveItem(itemIndex) {
-        let dataItems = this.#container.querySelectorAll('[data-item]');
+    setActiveIndex(index) {
+        this.#activeIndex = index;
 
-        for (let i = 0; i < dataItems.length; i++) {
-            if (i === itemIndex) {
-                dataItems[i].classList.remove('d-none');
+        // Get all data-items because we do not know how many there are
+        let allItems = this.#container.querySelectorAll('[data-item]');
+
+        for (let i = 0; i < allItems.length; i++) {
+            let currentItem = allItems[i];
+            // = means assign or set the value to something (variable) like in mathematic x = 10
+            // === means comparision so 10 === 10 ---> true '10' === 10 ---> false
+
+            // I want the currentItem that has i equal index to be visible
+            if (i === index) {
+                // now we have found out the item we want to make it visible
+                currentItem.classList.remove('d-none');
             } else {
-                dataItems[i].classList.add('d-none');
+                currentItem.classList.add('d-none');
             }
+        }
+    }
+
+    #onAnswerSelected(event) {
+        let currentButton = event.target;
+        let answerIndex = currentButton.getAttribute('data-answer');
+        let item = this.#data.items[this.#activeIndex];
+        let answers = item.answers;
+        let selectedAnswer = answers[answerIndex];
+        let isSelectedAnswerCorrect = selectedAnswer.correct;
+
+        // Display the result
+        // 1. we need to create an icon and put it in the button
+        let iconClass = '';
+
+        currentButton.classList.remove('btn-outline-secondary');
+
+        if (isSelectedAnswerCorrect) {
+            iconClass = 'bi bi-check-circle-fill';
+            currentButton.classList.add('btn-success');
+        } else {
+            iconClass = 'bi bi-exclamation-circle-fill';
+            currentButton.classList.add('btn-danger');
+        }
+
+        currentButton.innerHTML =
+            currentButton.innerHTML + `<i class="${iconClass}"></i>`;
+        // Disable all buttons
+        // 1. select the parent element of the current button
+        let parent = currentButton.parentElement;
+
+        let allButtons = parent.querySelectorAll('[data-answer]');
+
+        for (let i = 0; i < allButtons.length; i++) {
+            let button = allButtons[i];
+
+            button.disabled = true;
         }
     }
 }

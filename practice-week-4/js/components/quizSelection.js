@@ -10,15 +10,14 @@ class QuizSelection {
         this.#setup();
     }
 
-
     #render() {
         this.#container.innerHTML = `
-        <select class="form-select d-inline-block w-auto mb-5">
-        <option>-- Select a quiz --</option>
-        <option value="javascript-quiz">Javascript Quiz</option>
-        <option value="au-history-quiz">Australian History Quiz</option>
-        <option value="electric-car-quiz">Electric Cars Quiz</option>
-        </select>`;
+          <select class="form-select d-inline-block w-auto mb-5">
+              <option>-- Select a quiz --</option>
+              <option value="javascript-quiz">Javascript Quiz</option>
+              <option value="au-history-quiz">Australian History Quiz</option>
+              <option value="electric-car-quiz">Electric Cars Quiz</option>
+          </select>`;
     }
 
     #setup() {
@@ -35,6 +34,9 @@ class QuizSelection {
         this.#onChange(selectedValue);
     }
 
+    destroy() {
+        this.#container.innerHTML = '';
+    }
 }
 
 export default QuizSelection;

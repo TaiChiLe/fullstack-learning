@@ -1,0 +1,94 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Template</title>
+    <style>
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .bounding-box {
+            width: 1000px;
+            height: 600px;
+            border: 2px dashed #666;
+        }
+
+        .inner-box {
+            position: relative;
+            height: 100px;
+            width: 100px;
+            background-color: #ccc;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="bounding-box">
+            <div class="inner-box"></div>
+        </div>
+    </div>
+    <script>
+        let movingBox = document.querySelector('.inner-box');
+        let boundingBox = document.querySelector('.bounding-box');
+        let movingGap = 10;
+        let acceptedKeys = ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'];
+        let position = {
+            top: 0,
+            left: 0,
+        };
+        let boundBoxSize = {
+            width: boundingBox.clientWidth,
+            height: boundingBox.clientHeight
+        };
+        let movingBoxSize = {
+            width: movingBox.clientWidth,
+            height: movingBox.clientHeight
+        };
+        let onDirectionKeyChanged = function (event) {
+            let key = event.key;
+            let newLeft = position.left;
+            let newTop = position.top;
+
+            if (key === 'ArrowUp') {
+                newTop -= movingGap;
+            } else if (key === 'ArrowRight') {
+                newLeft += movingGap;
+            } else if (key === 'ArrowDown') {
+                newTop += movingGap;
+            } else if (key === 'ArrowLeft') {
+                newLeft -= movingGap;
+            }
+
+            // validate the value before setting it back to position
+            if (newLeft < 0) {
+                newLeft = 0;
+            } else if (newLeft + movingBoxSize.width > boundBoxSize.width) {
+                newLeft = boundBoxSize.width - movingBoxSize.width;
+            }
+
+            if (newTop < 0) {
+                newTop = 0;
+            } else if (newTop + movingBoxSize.height > boundBoxSize.height) {
+                newTop = boundBoxSize.height - movingBoxSize.width;
+            }
+
+            position.left = newLeft;
+            position.top = newTop;
+
+            movingBox.style.top = `${position.top}px`;
+            movingBox.style.left = `${position.left}px`;
+        };
+
+        document.addEventListener('keydown', onDirectionKeyChanged);
+
+
+    </script>
+</body>
+
+</html>
