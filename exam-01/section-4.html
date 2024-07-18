@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>To-Do-App</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 700px;
+        }
+
+        .header {
+            color: #b83f45;
+            font-size: 80px;
+            font-weight: 200;
+        }
+
+        .footer {
+            display: flex;
+            width: 100%;
+            justify-content: space-around;
+        }
+
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .d-none {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">todos</div>
+        <div class="input-container">
+            <i class="select-all bi bi-arrow-down-short"></i>
+            <input class="input-text" type="text" placeholder="What needs to be done?">
+        </div>
+        <div class="task-container">
+            <ul class="task-list">
+            </ul>
+        </div>
+        <div class="footer">
+            <div class="counter">
+                <span>0 Item Left!</span>
+            </div>
+            <div>
+                <span class="all-btn">All</span>
+                <span class="active-btn">Active</span>
+                <span class="completed-btn">Completed</span>
+            </div>
+            <div>
+                <span>Clear Completed</span>
+            </div>
+
+        </div>
+    </div>
+    <script>
+        let inputText = document.querySelector('.input-text');
+        let taskList = document.querySelector('.task-list');
+
+        inputText.addEventListener('keypress', function (event) {
+            if (event.key === 'Enter') {
+                //add item to list
+                let listItem = document.createElement('li');
+                listItem.innerHTML = `
+                    <input class="check-box" type="checkbox">
+                    <span>${inputText.value}</span>
+                    <i class="bi bi-x delete-btn"></i>`;
+
+                let deleteBtn = listItem.querySelector('.delete-btn');
+                deleteBtn.addEventListener('click', onDeleteButtonClick);
+
+                let checkBox = listItem.querySelector('.check-box');
+                checkBox.addEventListener('change', onCheckBoxChange);
+                taskList.appendChild(listItem);
+
+                //clear the text input
+                inputText.value = '';
+            }
+            updateCounter();
+        });
+
+        function onDeleteButtonClick(event) {
+            let currentButton = event.target;
+            let listItem = currentButton.parentElement;
+            listItem.remove();
+            updateCounter();
+        }
+
+        let selectAllBtn = document.querySelector('.select-all');
+        selectAllBtn.addEventListener('click', function () {
+            let allListItems = document.querySelectorAll('.check-box');
+
+            let allChecked = true;
+            for (let i = 0; i < allListItems.length; i++) {
+                if (allListItems[i].checked == false) {
+                    allChecked = false;
+                    break;
+                }
+            }
+
+            if (allChecked) {
+                for (let i = 0; i < allListItems.length; i++) {
+                    allListItems[i].checked = false;
+                }
+            } else {
+                for (let i = 0; i < allListItems.length; i++) {
+                    allListItems[i].checked = true;
+                }
+            }
+            updateCounter();
+        });
+
+        function onCheckBoxChange(event) {
+            updateCounter();
+        }
+
+        let counterDisplay = document.querySelector('.counter');
+        function updateCounter() {
+            counterDisplay.innerHTML = ''
+            let allListItems = document.querySelectorAll('.check-box');
+            let itemsLeft = 0;
+            for (let i = 0; i < allListItems.length; i++) {
+                if (allListItems[i].checked == false) {
+                    itemsLeft++;
+                }
+            }
+            counterDisplay.innerHTML = `${itemsLeft} items left!`;
+        }
+
+        let allBtn = document.querySelector('.all-btn');
+        let activeBtn = document.querySelector('.active-btn');
+        let completedBtn = document.querySelector('.completed-btn');
+
+        allBtn.addEventListener('click', onAllBtnClick);
+        activeBtn.addEventListener('click', onActiveBtnClick);
+        completedBtn.addEventListener('click', onCompletedBtnClick);
+
+        function onAllBtnClick() {
+            let allListItems = document.querySelectorAll('li');
+            for (let i = 0; i < allListItems.length; i++) {
+                allListItems[i].classList.remove('d-none');
+            }
+        }
+
+        function onActiveBtnClick() {
+            let allListCheckBoxes = document.querySelectorAll('.check-box');
+            for (let i = 0; i < allListCheckBoxes.length; i++) {
+                if (!allListCheckBoxes[i].checked) {
+                    let listItem = allListCheckBoxes[i].parentElement;
+                    listItem.classList.add('d-none');
+                }
+            }
+        }
+
+        function onCompletedBtnClick() {
+
+        }
+
+    </script>
+</body>
+
+</html>
