@@ -1,10 +1,10 @@
-import GetInput from './getInput.js';
-import Task from './tasks.js';
-import TaskCounter from './taskCounter.js';
-import Footer from './footer.js';
-import Filter from './filter.js';
-import ClearCompleted from './clearCompleted.js';
-import CheckAll from './checkAll.js';
+import GetInput from './components/getInput.js';
+import Task from './components/tasks.js';
+import TaskCounter from './components/taskCounter.js';
+import Footer from './components/footer.js';
+import Filter from './components/filter.js';
+import ClearCompleted from './components/clearCompleted.js';
+import CheckAll from './components/checkAll.js';
 
 let inputTextContainer = document.querySelector('.text-input');
 let inputText;
