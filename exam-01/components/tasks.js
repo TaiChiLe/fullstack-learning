@@ -62,6 +62,31 @@ class Task {
       taskTextBox.focus();
     }
   }
+
+  onCheckAllClick() {
+    let allListItems = this.#container.querySelectorAll('.check-box');
+
+    let allChecked = true;
+    for (let i = 0; i < allListItems.length; i++) {
+      if (allListItems[i].checked === false) {
+        allChecked = false;
+      }
+    }
+
+    if (allChecked === true) {
+      for (let i = 0; i < allListItems.length; i++) {
+        allListItems[i].checked = false;
+        let selectedTask = allListItems[i].parentElement;
+        selectedTask.classList.remove('strike-out');
+      }
+    } else {
+      for (let i = 0; i < allListItems.length; i++) {
+        allListItems[i].checked = true;
+        let selectedTask = allListItems[i].parentElement;
+        selectedTask.classList.add('strike-out');
+      }
+    }
+  }
 }
 
 export default Task;

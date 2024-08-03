@@ -4,23 +4,24 @@ import TaskCounter from './components/taskCounter.js';
 import Footer from './components/footer.js';
 import Filter from './components/filter.js';
 import ClearCompleted from './components/clearCompleted.js';
-import CheckAll from './components/checkAll.js';
 
-let inputTextContainer = document.querySelector('.text-input');
+let inputContainer = document.querySelector('.input-container');
 let inputText;
 let counter;
 let footer;
 let filter;
 let checkAllTasks;
+let taskComponent;
 
-let getInput = new GetInput(inputTextContainer, setInput);
+let getInput = new GetInput(inputContainer, setInput, notifyAllCheck);
 
 function setInput(text) {
   inputText = text;
 
   if (inputText) {
+    getInput.renderCheckAll();
     let taskContainer = document.querySelector('.task-container');
-    let taskComponent = new Task(taskContainer, onDeleteBtnClick, onCheckboxCheck);
+    taskComponent = new Task(taskContainer, onDeleteBtnClick, onCheckboxCheck);
     taskComponent.addTodo(inputText);
     let counterContainer = document.querySelector('.counter');
     let data = document.querySelector('.task-list');
@@ -36,9 +37,6 @@ function setInput(text) {
 
     let clearCompleted = new ClearCompleted(document.querySelector('.footer-end'), data, notifyClear);
 
-    let checkAllImage = document.querySelector('.select-all-image');
-    checkAllTasks = new CheckAll(checkAllImage, data, notifyAllCheck);
-    checkAllTasks.render();
   }
 }
 
@@ -53,6 +51,7 @@ function onCheckboxCheck() {
 }
 
 function notifyAllCheck() {
+  taskComponent.onCheckAllClick();
   counter.render();
 }
 
