@@ -1,7 +1,7 @@
 class Footer {
     #container;
     #notifyClearCompleted;
-    #clearCompleted;
+    #clearCompletedBtn;
     #allBtn;
     #activeBtn;
     #completedBtn;
@@ -18,9 +18,9 @@ class Footer {
         this.#notifySelectCompleted = notifySelectCompleted;
 
         this.#counterContainer = this.#container.querySelector('.counter');
-        this.#clearCompleted = this.#container.querySelector('.footer-end');
+        this.#clearCompletedBtn = this.#container.querySelector('.footer-end');
 
-        this.#clearCompleted.addEventListener('click', this.#clear.bind(this))
+        this.#clearCompletedBtn.addEventListener('click', this.#clear.bind(this))
         this.#allBtn = document.querySelector('.select-all');
         this.#activeBtn = document.querySelector('.select-active');
         this.#completedBtn = document.querySelector('.select-completed');
