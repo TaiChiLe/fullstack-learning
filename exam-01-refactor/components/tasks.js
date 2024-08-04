@@ -1,4 +1,4 @@
-class Task {
+class Tasks {
   #container;
   #notifyDeleteBtnClick;
   #notifyCheckBox;
@@ -143,4 +143,4 @@ class Task {
   }
 }
 
-export default Task;
+export default Tasks;
