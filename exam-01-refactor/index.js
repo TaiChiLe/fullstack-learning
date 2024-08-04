@@ -24,6 +24,7 @@ function setInput(text) {
     footer = new Footer(document.querySelector('.footer'), notifyClearCompleted, notifySelectAll, notifySelectActive, notifySelectCompleted);
     footer.render();
     updateItemsLeft();
+    refreshListType();
   }
 }
 
@@ -33,6 +34,10 @@ function onDeleteBtnClick() {
 
 function onCheckboxCheck() {
   updateItemsLeft();
+  refreshListType();
+}
+
+let refreshListType = () => {
   if (selectedListType === "allSelected") {
     taskComponent.allSelect();
   } else if (selectedListType === "activeSelected") {
