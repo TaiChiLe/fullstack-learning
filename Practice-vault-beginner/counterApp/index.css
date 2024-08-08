@@ -1,0 +1,42 @@
+body {
+    padding: 0;
+    margin: 0;
+    background-color: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    display: flex;
+    background-color: white;
+    height: 300px;
+    width: 300px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+button {
+    background-color: white;
+    height: 80px;
+    width: 80px;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    font-size: 20px;
+}
+
+button:hover {
+    background-color: grey;
+    color: white;
+}
+
+.min-max {
+    color: grey;
+}
+
+.counter {
+    font-size: 30px;
+}
