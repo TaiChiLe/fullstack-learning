@@ -1,0 +1,29 @@
+.advanced-tasks {
+    border: 1px solid #ccc;
+    padding: 20px;
+}
+
+.advanced-tasks ul {
+    list-style: none;
+    padding: 0;
+}
+
+.advanced-tasks li {
+    margin: 5px;
+    padding: 5px;
+    background: #f8f8f8;
+    border-radius: 10px;
+}
+
+.advanced-tasks span {
+    font-weight: bold;
+    margin-right: 5px;
+}
+
+
+.no-tasks {
+    padding: 10px;
+    background: #f8f8f8;
+    font-style: italic;
+    color: red;
+}

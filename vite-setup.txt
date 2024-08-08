@@ -1,0 +1,13 @@
+1. Run 
+npm create vite@latest
+2. If got ask to install create-vite, pick “y”
+3. Follow the prompt and enter the project name
+4. From the list of framework, select “React”
+5. From the list of variant, select “Javascript”
+6. Follow the instruction
+
+cd your-project-name
+npm install
+npm run dev
+
+7. Open localhost:5173 (through the instruction in the command line to see your project page (right hand side)
