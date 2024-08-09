@@ -1,4 +1,9 @@
 function Body() {
+  const images = [
+    'https://img.freepik.com/premium-photo/cute-3d-cat-cartoon-character-generative-ai_923640-2.jpg',
+    'https://img.freepik.com/premium-photo/cute-cartoon-cat-character-generative-ai_570929-3968.jpg',
+    'https://img.freepik.com/premium-photo/grumpy-cat-cartoon-character-generative-ai_934475-8785.jpg',
+  ];
   return (
     <div>
       <div>
@@ -10,18 +15,9 @@ function Body() {
       </div>
 
       <div class="img-gallery text-center">
-        <img
-          src="https://img.freepik.com/premium-photo/cute-3d-cat-cartoon-character-generative-ai_923640-2.jpg"
-          alt=""
-        />
-        <img
-          src="https://img.freepik.com/premium-photo/cute-cartoon-cat-character-generative-ai_570929-3968.jpg"
-          alt=""
-        />
-        <img
-          src="https://img.freepik.com/premium-photo/grumpy-cat-cartoon-character-generative-ai_934475-8785.jpg"
-          alt=""
-        />
+        {images.map((item, index) => {
+          return <img key={index} src={item} alt="" />;
+        })}
       </div>
       <div>
         They shared tales of their escapades until interrupted by{' '}
