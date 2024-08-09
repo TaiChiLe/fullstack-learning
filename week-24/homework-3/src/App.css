@@ -1,0 +1,52 @@
+body {
+  background: floralwhite;
+  font-family: Helvetica, Arial;
+  line-height: 1.8;
+}
+
+div {
+  margin-bottom: 20px;
+}
+
+.container {
+  width: 720px;
+  margin: 50px auto;
+  padding: 20px;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 0 20px lightgray;
+}
+
+h1 {
+  text-align: center;
+  padding-bottom: 10px;
+  border-bottom: 8px dashed whitesmoke;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.img-gallery img {
+  border-radius: 9999px;
+  width: 180px;
+  margin-right: 10px;
+  border: 6px solid whitesmoke;
+}
+
+img {
+  overflow-clip-margin: content-box;
+  overflow: clip;
+}
+
+.sm-img {
+  width: 200px;
+}
+
+a {
+  text-decoration: none;
+  border-bottom: 2px dashed orange;
+  color: black;
+  padding-left: 5px;
+  padding-right: 5px;
+}
