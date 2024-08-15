@@ -3,6 +3,7 @@ import './App.css';
 import Header from './components/Header';
 import Tasks from './components/Task';
 import AdvancedTasks from './components/AdvancedTasks';
+import Counter from './components/Counter';
 
 function App() {
   const items = [
@@ -28,6 +29,9 @@ function App() {
 
         <div>
           <AdvancedTasks items={items} />
+        </div>
+        <div>
+          <Counter />
         </div>
       </div>
     </div>
