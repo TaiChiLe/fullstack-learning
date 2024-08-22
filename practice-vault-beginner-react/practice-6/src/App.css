@@ -1,0 +1,50 @@
+.red {
+  background-color: red;
+}
+
+.orange {
+  background-color: orange;
+}
+
+.yellow {
+  background-color: yellow;
+}
+
+.green {
+  background-color: green;
+}
+
+.blue {
+  background-color: blue;
+}
+
+.indigo {
+  background-color: indigo;
+}
+
+.violet {
+  background-color: violet;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+span {
+  padding: 0 5px;
+}
+
+.button {
+  font-size: 30px;
+  color: white;
+  background-color: black;
+  padding: 20px;
+}
+
+body {
+  padding: 0px;
+  margin: 0px;
+}

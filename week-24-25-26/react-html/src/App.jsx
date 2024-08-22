@@ -1,9 +1,12 @@
 import React from 'react';
+import { useState, useEffect } from 'react';
 import './App.css';
 import Header from './components/Header';
 import Tasks from './components/Task';
 import AdvancedTasks from './components/AdvancedTasks';
 import Counter from './components/Counter';
+import AnimeDropdown from './components/AnimeDropdown';
+import InputBox from './components/InputBox';
 
 function App() {
   const items = [
@@ -11,6 +14,14 @@ function App() {
     { content: 'Have a good 1hour nap', completed: true },
     { content: 'Game whole night', completed: true },
   ];
+
+  const [animeRequestUrl, setAnimeRequestUrl] = useState('');
+  const onTopAnimeClick = () => {
+    setAnimeRequestUrl('https://api.jikan.moe/v4/top/anime');
+  };
+  const onSportAnimeClick = () => {
+    setAnimeRequestUrl('https://api.jikan.moe/v4/anime?genres=30&page=1');
+  };
 
   return (
     <div className="container">
@@ -33,6 +44,16 @@ function App() {
         <div>
           <Counter />
         </div>
+        <div>
+          <div>
+            <button onClick={onTopAnimeClick}>Load top anime</button>
+            <button onClick={onSportAnimeClick}>Load sport anime</button>
+          </div>
+          <AnimeDropdown requestUrl={animeRequestUrl} />
+        </div>
+      </div>
+      <div>
+        <InputBox />
       </div>
     </div>
   );
