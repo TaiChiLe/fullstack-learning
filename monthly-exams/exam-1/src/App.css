@@ -1,0 +1,50 @@
+body {
+    margin: 0;
+}
+
+
+.container {
+    padding: 80px;
+    height: 100vh;
+    width: 100vw;
+}
+
+.btn {
+    height: 30px;
+    width: 30px;
+    border: 2px white solid;
+    padding: 30px;
+    color: white;
+    margin: 20px;
+    margin-top: 20px;
+}
+
+.red {
+    background-color: red;
+}
+
+.green {
+    background-color: green;
+}
+
+.blue {
+    background-color: blue;
+}
+
+.purple {
+    background-color: purple;
+}
+
+.orange {
+    background-color: orange;
+}
+
+.black {
+    background-color: black;
+}
+
+.footer-text {
+    font-size: 30px;
+    color: white;
+    padding-top: 60px;
+}
