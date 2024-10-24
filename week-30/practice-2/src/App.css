@@ -1,0 +1,46 @@
+body {
+    margin: 0px;
+    padding: 0px;
+}
+
+.container {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+}
+
+.image {
+    background-image: url(https://images.unsplash.com/photo-1576005391034-242dd8f40823);
+    flex: 1;
+    background-size: cover;
+    background-position: center center;
+}
+
+.article {
+    flex: 1;
+    padding: 120px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 400px;
+    max-width: 400px;
+}
+
+.heading {
+    position: relative;
+    font-size: 60px;
+    text-align: center;
+    padding-bottom: 40px;
+    border-bottom: 1px solid lightgray;
+    margin-bottom: 50px;
+}
+
+.decorator {
+    position: absolute;
+    height: 20px;
+    width: 20px;
+    border-radius: 100px;
+    background: lightgray;
+    bottom: -9px;
+    left: 190px;
+}
