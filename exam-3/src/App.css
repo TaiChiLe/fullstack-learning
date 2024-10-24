@@ -1,0 +1,77 @@
+@import url('https://fonts.googleapis.com/css2?family=SUSE:wght@100..800&display=swap');
+
+body {
+    padding: 0px;
+    margin: 0px;
+    font-family: "SUSE", sans-serif;
+}
+
+.container {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+}
+
+.image {
+    background-image: url(https://images.unsplash.com/photo-1576005391034-242dd8f40823);
+    flex: 1;
+    background-position: center;
+    background-size: cover;
+}
+
+.article {
+    width: 600px;
+    min-width: 600px;
+    margin: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.title {
+    font-size: 80px;
+    font-weight: bold;
+    text-align: center;
+    border-bottom: 1px solid lightgrey;
+    padding-bottom: 50px;
+    position: relative;
+    margin-bottom: 50px;
+    width: 500px;
+}
+
+.decorator {
+    height: 20px;
+    width: 20px;
+    background-color: lightgrey;
+    position: absolute;
+    bottom: -10px;
+    left: 250px;
+    border-radius: 100px;
+}
+
+.quote {
+    font-size: 20px;
+    color: grey;
+    font-style: italic;
+    margin-bottom: 50px;
+}
+
+.text {
+    display: flex;
+    gap: 40px;
+    letter-spacing: 1px;
+}
+
+.text>div {
+    width: 50%;
+}
+
+/* I had to inspect the page to style the Big M */
+.big-m {
+    background-image: url(https://media.baamboozle.com/uploads/images/113721/1657835758_17680_gif-url.gif);
+    background-size: cover;
+    width: 80px;
+    height: 80px;
+    float: left;
+}
