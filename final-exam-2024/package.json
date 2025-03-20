@@ -10,8 +10,12 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "antd": "^5.24.4",
+    "css-modules": "^0.3.0",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-css-modules": "^4.7.11",
+    "react-dom": "^19.0.0",
+    "react-router-dom": "^7.4.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.21.0",
