@@ -12,7 +12,7 @@ body {
     display: flex;
 }
 
-.image {
+g .image {
     background-image: url(https://images.unsplash.com/photo-1576005391034-242dd8f40823);
     flex: 1;
     background-position: center;
